@@ -1,20 +1,32 @@
 package com.prado.cursocompose
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.KeyboardArrowLeft
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -27,6 +39,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -42,8 +55,11 @@ class MainActivity : ComponentActivity() {
             CursoComposeTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerpadding ->
 
+                    //Aula 09
+                    ShowButton(innerpadding)
+
                     //Aula 08
-                    ShowTextField(innerpadding)
+                  //  ShowTextField(innerpadding)
 
                    // ShowImage(padding)
 
@@ -70,6 +86,34 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+    //Aula 09
+    @Composable
+    fun ShowButton(padding: PaddingValues){
+        Box(modifier = Modifier
+            .padding(padding)
+            .fillMaxSize(),
+        contentAlignment = Alignment.Center){
+           /* Button(onClick = {}) {
+                Text(text = "Cadastrar")
+                Icon(Icons.Default.Done, contentDescription = "")
+            }*/
+            OutlinedButton(modifier = Modifier.padding(8.dp).fillMaxWidth(),
+                onClick = {Log.i("botao", "ShowButton: O botao foi clicado!!!")},
+                border = BorderStroke(2.dp, Color.Red),
+                colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.Green),
+                shape = CircleShape,
+            ) {
+                Text(text = "Cadastrar")
+                Icon(Icons.Default.Done, contentDescription = "")
+            }
+
+           /* IconButton(
+                onClick = {}
+            ) {
+                Icon(Icons.AutoMirrored.Filled.KeyboardArrowLeft, contentDescription = "")
+            }*/
+        }
+    }
     //Aula 08
     @Composable
     fun ShowTextField(padding: PaddingValues){
@@ -90,7 +134,9 @@ class MainActivity : ComponentActivity() {
             Text(text = "$text")
 
         }
-        Box(modifier = Modifier.padding(padding).fillMaxSize(), contentAlignment = Alignment.Center){
+        Box(modifier = Modifier
+            .padding(padding)
+            .fillMaxSize(), contentAlignment = Alignment.Center){
             // TextField(value = text, onValueChange = {text = it})
             OutlinedTextField(
                 value = text,
@@ -106,7 +152,9 @@ class MainActivity : ComponentActivity() {
     //Aula 07
     @Composable
     private fun ShowImage(innerPadding: PaddingValues) {
-        Box(modifier = Modifier.padding(innerPadding).fillMaxSize(),
+        Box(modifier = Modifier
+            .padding(innerPadding)
+            .fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
             /*Image(
@@ -135,7 +183,8 @@ class MainActivity : ComponentActivity() {
     fun GreetingPreview(){
         //Greeting(name = "Alvaro")
        // ShowImage(innerPadding = PaddingValues())
-        ShowTextField(padding = PaddingValues())
+       // ShowTextField(padding = PaddingValues())
+        ShowButton(padding = PaddingValues())
     }
 
 }
