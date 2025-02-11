@@ -1,5 +1,6 @@
 package com.prado.cursocompose
 
+import android.nfc.Tag
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -13,9 +14,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -61,6 +64,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.prado.cursocompose.ui.theme.BlueText
 import com.prado.cursocompose.ui.theme.CursoComposeTheme
+import java.util.logging.Logger
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,9 +74,10 @@ class MainActivity : ComponentActivity() {
             CursoComposeTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerpadding ->
 
+                    //Aula 13
+                    FormularioCadastro(innerpadding)
                     //Aula 12
-                    ContainersExemple2(innerpadding)
-
+                   // ContainersExemple2(innerpadding)
                     //Aula 11
                     //ContainersExemple(innerpadding)
                     //Aula 10
@@ -108,6 +113,55 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+    //Aula 13
+    @Composable
+    fun FormularioCadastro(paddingValues: PaddingValues){
+        var name by remember { mutableStateOf("") }
+        var email by remember { mutableStateOf("") }
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .padding(20.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.login_avatar),
+                contentDescription = null,
+                tint = Color.Gray,
+                modifier = Modifier
+                    .size(100.dp)
+                    .border(color = Color.Gray,
+                        width = 1.dp,
+                        shape = CircleShape)
+                    .padding(10.dp)
+            )
+            OutlinedTextField(
+                value = name,
+                onValueChange = {name = it},
+                label = { Text(text = "Nome")},
+                modifier = Modifier.fillMaxWidth())
+
+            Spacer(modifier = Modifier.width(5.dp))
+
+            OutlinedTextField(
+                value = email,
+                onValueChange = {email = it},
+                label = { Text(text = "Email")},
+                modifier = Modifier.fillMaxWidth())
+
+            Spacer(modifier = Modifier.height(10.dp))
+              OutlinedButton(
+                onClick = {
+                    Log.i("Form", "FormularioCadastro: Nome: ${name}, E-mail: ${email}")
+                }
+            ) {
+                Text(text = "Cadastrar")
+            }
+        }
+    }
+
     //Aula 12
     @Composable
     fun ContainersExemple2(padding: PaddingValues){
@@ -222,8 +276,8 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun ContainersExemple(padding: PaddingValues){
         Box(modifier = Modifier
-                .padding(padding)
-                .fillMaxSize()){
+            .padding(padding)
+            .fillMaxSize()){
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.fillMaxSize(),
@@ -264,7 +318,11 @@ class MainActivity : ComponentActivity() {
                     .clickable {
                         Log.i("BotaoFeke", "ModifierPropeties: O nosso botao fake foi clicado!!")
                     }
-                    .border(width = 1.dp, color = Color.Black, shape = RoundedCornerShape(cornerSize))
+                    .border(
+                        width = 1.dp,
+                        color = Color.Black,
+                        shape = RoundedCornerShape(cornerSize)
+                    )
                     .clip(RoundedCornerShape(cornerSize))
                     .width(200.dp)
                     .padding(20.dp)
@@ -283,7 +341,9 @@ class MainActivity : ComponentActivity() {
                 Text(text = "Cadastrar")
                 Icon(Icons.Default.Done, contentDescription = "")
             }*/
-            OutlinedButton(modifier = Modifier.padding(8.dp).fillMaxWidth(),
+            OutlinedButton(modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth(),
                 onClick = {Log.i("botao", "ShowButton: O botao foi clicado!!!")},
                 border = BorderStroke(2.dp, Color.Red),
                 colors = ButtonDefaults.outlinedButtonColors(contentColor = Color.Green),
@@ -373,7 +433,8 @@ class MainActivity : ComponentActivity() {
        // ShowButton(padding = PaddingValues())
        // ModifierPropeties(padding = PaddingValues())
       //  ContainersExemple(padding = PaddingValues())
-        ContainersExemple2(padding = PaddingValues())
+       // ContainersExemple2(padding = PaddingValues())
+        FormularioCadastro(paddingValues = PaddingValues())
     }
 
 }
