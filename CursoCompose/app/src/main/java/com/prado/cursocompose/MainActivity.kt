@@ -8,9 +8,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -49,6 +52,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.prado.cursocompose.ui.theme.BlueText
 import com.prado.cursocompose.ui.theme.CursoComposeTheme
 
@@ -60,6 +64,8 @@ class MainActivity : ComponentActivity() {
             CursoComposeTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerpadding ->
 
+                    //Aula 11
+                    ContainersExemple(innerpadding)
                     //Aula 10
                     ModifierPropeties(innerpadding)
                     //Aula 09
@@ -91,6 +97,39 @@ class MainActivity : ComponentActivity() {
 
                 }
             }
+        }
+    }
+    //Aula 11
+    @Composable
+    fun ContainersExemple(padding: PaddingValues){
+        Box(modifier = Modifier
+                .padding(padding)
+                .fillMaxSize()){
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center
+            ) {
+                for (i in 0..10){
+                    Text(text = "Teste $i",
+                        modifier = Modifier
+                            .padding(10.dp),
+                        color = Color.Blue,
+                        fontSize = 17.sp
+                    )
+                }
+
+
+
+               /* Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxHeight(),
+                    horizontalArrangement = Arrangement.SpaceAround) {
+                    Text(text = "Teste 1")
+                    Text(text = "Teste 2")
+                }*/
+            }
+
         }
     }
     //Aula 10
@@ -213,7 +252,8 @@ class MainActivity : ComponentActivity() {
        // ShowImage(innerPadding = PaddingValues())
        // ShowTextField(padding = PaddingValues())
        // ShowButton(padding = PaddingValues())
-        ModifierPropeties(padding = PaddingValues())
+       // ModifierPropeties(padding = PaddingValues())
+        ContainersExemple(padding = PaddingValues())
     }
 
 }
