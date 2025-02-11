@@ -1,6 +1,5 @@
 package com.prado.cursocompose
 
-import android.nfc.Tag
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -15,7 +14,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -23,29 +21,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.KeyboardArrowLeft
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -55,7 +42,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -64,7 +50,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.prado.cursocompose.ui.theme.BlueText
 import com.prado.cursocompose.ui.theme.CursoComposeTheme
-import java.util.logging.Logger
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,9 +58,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             CursoComposeTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerpadding ->
-
+                    //Aula 14 Desafio
+                    FormularioCadastro2(innerpadding)
                     //Aula 13
-                    FormularioCadastro(innerpadding)
+                    //FormularioCadastro(innerpadding)
                     //Aula 12
                    // ContainersExemple2(innerpadding)
                     //Aula 11
@@ -110,6 +96,129 @@ class MainActivity : ComponentActivity() {
 
 
                 }
+            }
+        }
+    }
+    //Aula 14 desafio
+    @Composable
+    fun FormularioCadastro2(paddingValues: PaddingValues){
+        var name by remember { mutableStateOf("") }
+        var sobrenome by remember { mutableStateOf("") }
+        var rua by remember { mutableStateOf("") }
+        var estado by remember { mutableStateOf("") }
+        var numero by remember { mutableStateOf("") }
+        var complemento by remember { mutableStateOf("") }
+        var cep by remember { mutableStateOf("") }
+        var rgCpf by remember { mutableStateOf("") }
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .padding(20.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.login_avatar),
+                contentDescription = null,
+                tint = Color.Gray,
+                modifier = Modifier
+                    .size(100.dp)
+                    .border(color = Color.Gray,
+                        width = 1.dp,
+                        shape = CircleShape)
+                    .padding(10.dp)
+            )
+            Row {
+                OutlinedTextField(
+                value = name,
+                onValueChange = {name = it},
+                label = { Text(text = "Nome")},
+                modifier = Modifier.weight(1f)
+                )
+
+                Spacer(modifier = Modifier.width(5.dp)
+                )
+
+                OutlinedTextField(
+                    value = sobrenome,
+                    onValueChange = {sobrenome = it},
+                    label = { Text(text = "Sobrenome")},
+                    modifier = Modifier.weight(1f)
+
+                )
+
+            }
+            OutlinedTextField(
+                    value = rua,
+            onValueChange = {rua = it},
+            label = { Text(text = "Rua")},
+            modifier = Modifier.fillMaxWidth())
+
+            Spacer(modifier = Modifier.width(5.dp))
+
+            OutlinedTextField(
+                value = estado,
+                onValueChange = {estado = it},
+                label = { Text(text = "UF")},
+                modifier = Modifier.fillMaxWidth())
+
+            Spacer(modifier = Modifier.width(5.dp))
+
+            Row {
+                OutlinedTextField(
+                    value = numero,
+                    onValueChange = {numero = it},
+                    label = { Text(text = "Número")},
+                    modifier = Modifier.weight(1f)
+                )
+
+                Spacer(modifier = Modifier.width(5.dp)
+                )
+
+                OutlinedTextField(
+                    value = complemento,
+                    onValueChange = {complemento = it},
+                    label = { Text(text = "Complemento")},
+                    modifier = Modifier.weight(1f)
+
+                )
+                Spacer(modifier = Modifier.width(5.dp)
+                )
+
+                OutlinedTextField(
+                    value = cep,
+                    onValueChange = {cep = it},
+                    label = { Text(text = "CEP")},
+                    modifier = Modifier.weight(1f)
+
+                )
+
+            }
+            Spacer(modifier = Modifier.width(5.dp))
+
+            OutlinedTextField(
+                value = rgCpf,
+                onValueChange = {rgCpf = it},
+                label = { Text(text = "RG/CPF")},
+                modifier = Modifier.fillMaxWidth()
+
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            OutlinedButton(
+                onClick = {
+                    Log.i("Form2", "FormularioCadastro2: \n" +
+                            "Nome: ${name}\n" +
+                            " Sobrenome: ${sobrenome}\n " +
+                            "Rua: ${rua}\n" +
+                            " Estado: ${estado}\n" +
+                            " Numero: ${numero}\n" +
+                            " Complemento: ${complemento}\n" +
+                            "CEP: ${cep}\n" +
+                            " RG ou CPF: ${rgCpf}\n")
+                }
+            ) {
+                Text(text = "Cadastrar")
             }
         }
     }
@@ -434,7 +543,8 @@ class MainActivity : ComponentActivity() {
        // ModifierPropeties(padding = PaddingValues())
       //  ContainersExemple(padding = PaddingValues())
        // ContainersExemple2(padding = PaddingValues())
-        FormularioCadastro(paddingValues = PaddingValues())
+       // FormularioCadastro(paddingValues = PaddingValues())
+        FormularioCadastro2(paddingValues = PaddingValues())
     }
 
 }
