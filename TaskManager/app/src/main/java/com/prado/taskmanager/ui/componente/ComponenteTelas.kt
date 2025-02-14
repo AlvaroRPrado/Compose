@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,6 +22,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.prado.taskmanager.SharedPreference
 import com.prado.taskmanager.ui.theme.TaskManagerTheme
+
+private const val TITLE_KEY = "title_key"
+private const val DESCRIPITION_KEY = "description_key"
 
 @Composable
 fun CreateTaskScreen(paddingValues: PaddingValues){
@@ -45,15 +49,27 @@ fun CreateTaskScreen(paddingValues: PaddingValues){
         )
         Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
             Button(onClick = {
-                locaData.save(title, description)
-                Log.i("info", "CreateTaskCreen : ${locaData.get(title)}")
+                locaData.save(TITLE_KEY, title)
+                locaData.save(DESCRIPITION_KEY, description)
+                Log.i("info", "CreateTaskCreen : ${locaData.get(TITLE_KEY)}, ${locaData.get(DESCRIPITION_KEY)}")
             }) {
                 Text(text = "Criar")
             }
         }
     }
 }
+@Composable
+fun ListTaskScreen(paddingValues: PaddingValues){
+    val localData = SharedPreference(LocalContext.current)
 
+    Column (modifier = Modifier.padding(paddingValues)){
+        Card {
+            Text(text = localData.get(TITLE_KEY) ?: "")
+            Text(text = localData.get(DESCRIPITION_KEY) ?: "")
+        }
+    }
+
+}
 @Preview(showBackground = true)
 //@Preview(showBackground = true, device = Devices.DESKTOP)
 @Composable
