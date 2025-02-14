@@ -16,14 +16,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.prado.taskmanager.SharedPreference
 import com.prado.taskmanager.ui.theme.TaskManagerTheme
 
 @Composable
 fun CreateTaskScreen(paddingValues: PaddingValues){
     var title by remember { mutableStateOf(" ") }
     var description by remember { mutableStateOf(" ") }
+    val locaData = SharedPreference(LocalContext.current)
     Column (modifier = Modifier
         .padding(paddingValues)
         .padding(top = 20.dp, start = 10.dp, end = 10.dp)
@@ -42,9 +45,8 @@ fun CreateTaskScreen(paddingValues: PaddingValues){
         )
         Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
             Button(onClick = {
-                Log.i("info", "CreateTaskCreen :\n" +
-                        " Titulo: $title\n" +
-                        ", Descrição: $description")
+                locaData.save(title, description)
+                Log.i("info", "CreateTaskCreen : ${locaData.get(title)}")
             }) {
                 Text(text = "Criar")
             }
