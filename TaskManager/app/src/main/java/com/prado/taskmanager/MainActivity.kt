@@ -11,8 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.prado.taskmanager.ui.componente.CreateTaskScreen
-import com.prado.taskmanager.ui.componente.ListTaskScreen
 import com.prado.taskmanager.ui.theme.TaskManagerTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,14 +19,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             TaskManagerTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Column {
-                        CreateTaskScreen(innerPadding)
-                        Spacer(modifier = Modifier.padding(20.dp))
-                        ListTaskScreen(innerPadding)
-                    }
-
-                }
+                Navigation().Create()
             }
         }
     }

@@ -1,13 +1,15 @@
-package com.prado.taskmanager.ui.componente
+package com.prado.taskmanager
 
 import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,14 +22,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.prado.taskmanager.SharedPreference
+import androidx.navigation.NavController
+import com.prado.taskmanager.Constants.Companion.DESCRIPITION_KEY
+import com.prado.taskmanager.Constants.Companion.TITLE_KEY
 import com.prado.taskmanager.ui.theme.TaskManagerTheme
 
-private const val TITLE_KEY = "title_key"
-private const val DESCRIPITION_KEY = "description_key"
-
 @Composable
-fun CreateTaskScreen(paddingValues: PaddingValues){
+fun CreateTaskScreen(paddingValues: PaddingValues, navController: NavController){
     var title by remember { mutableStateOf(" ") }
     var description by remember { mutableStateOf(" ") }
     val locaData = SharedPreference(LocalContext.current)
@@ -51,30 +52,25 @@ fun CreateTaskScreen(paddingValues: PaddingValues){
             Button(onClick = {
                 locaData.save(TITLE_KEY, title)
                 locaData.save(DESCRIPITION_KEY, description)
-                Log.i("info", "CreateTaskCreen : ${locaData.get(TITLE_KEY)}, ${locaData.get(DESCRIPITION_KEY)}")
+                Log.i("info", "CreateTaskCreen : ${locaData.get(TITLE_KEY)}, ${locaData.get(
+                    DESCRIPITION_KEY
+                )}")
+                navController.navigate(Routes.TaskList.routes)
             }) {
                 Text(text = "Criar")
             }
         }
     }
 }
-@Composable
-fun ListTaskScreen(paddingValues: PaddingValues){
-    val localData = SharedPreference(LocalContext.current)
 
-    Column (modifier = Modifier.padding(paddingValues)){
-        Card {
-            Text(text = localData.get(TITLE_KEY) ?: "")
-            Text(text = localData.get(DESCRIPITION_KEY) ?: "")
-        }
-    }
-
-}
 @Preview(showBackground = true)
 //@Preview(showBackground = true, device = Devices.DESKTOP)
 @Composable
 private fun MainPreview() {
-    TaskManagerTheme {
-        CreateTaskScreen(PaddingValues())
+    TaskManagerTheme { 
+        CreateTaskScreen(
+            PaddingValues(),
+            navController = TODO()
+        )
     }
 }
