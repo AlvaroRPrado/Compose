@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
@@ -46,7 +47,7 @@ fun CreateTaskScreen(paddingValues: PaddingValues, navController: NavController)
             value = description,
             onValueChange = {description = it},
             label = { Text("Descrição") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().weight(1f)
         )
         Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
             Button(onClick = {

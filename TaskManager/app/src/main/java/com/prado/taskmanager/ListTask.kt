@@ -21,10 +21,11 @@ import com.prado.taskmanager.Constants.Companion.TITLE_KEY
     @Composable
     fun ListTaskScreen(paddingValues: PaddingValues, navController: NavController){
         val localData = SharedPreference(LocalContext.current)
-        Column (modifier = Modifier.padding(paddingValues)){
+        Column (
+            modifier = Modifier.padding(paddingValues)){
             Card {
-                Text(text = localData.get(TITLE_KEY))
-                Text(text = localData.get(DESCRIPITION_KEY))
+                Text(text = localData.get(TITLE_KEY), modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 10.dp, bottom = 10.dp))
+                Text(text = localData.get(DESCRIPITION_KEY), modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 10.dp, bottom = 10.dp))
             }
         }
         Box(modifier = Modifier.fillMaxSize().padding(paddingValues).padding(10.dp),
