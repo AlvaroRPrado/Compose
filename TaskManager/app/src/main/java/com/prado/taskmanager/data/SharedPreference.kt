@@ -1,4 +1,4 @@
-package com.prado.taskmanager
+package com.prado.taskmanager.data
 
 import android.content.Context
 import android.content.SharedPreferences

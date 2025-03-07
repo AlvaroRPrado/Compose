@@ -1,4 +1,4 @@
-package com.prado.taskmanager
+package com.prado.taskmanager.base
 
 class Constants {
 
