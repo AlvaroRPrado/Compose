@@ -2,7 +2,6 @@ package com.prado.taskmanager.base
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
-import androidx.navigation.NavGraph
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -15,7 +14,7 @@ class Navigation {
     //Refatorando o codigo
     private fun NavGraphBuilder.composableScreen(routes: String){
         composable(routes){
-            CallScalffold(navController).CreateScreen(scree = routes, localeData)
+            CallScalffold(navController, localeData).CreateScreen(screen = routes)
         }
     }
     private lateinit var navController: NavHostController

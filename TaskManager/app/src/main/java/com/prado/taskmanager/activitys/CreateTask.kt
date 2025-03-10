@@ -20,8 +20,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.prado.taskmanager.base.Constants.Companion.DESCRIPITION_KEY
-import com.prado.taskmanager.base.Constants.Companion.TITLE_KEY
+import com.prado.taskmanager.base.Constants.Companion.DESCRIPTION
+import com.prado.taskmanager.base.Constants.Companion.TITLE
 import com.prado.taskmanager.base.Routes
 import com.prado.taskmanager.data.SharedPreference
 import com.prado.taskmanager.ui.theme.TaskManagerTheme
@@ -49,10 +49,10 @@ fun CreateTaskScreen(paddingValues: PaddingValues, navController: NavController)
         )
         Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
             Button(onClick = {
-                localData.save(TITLE_KEY, title)
-                localData.save(DESCRIPITION_KEY, description)
-                Log.i("info", "CreateTaskCreen : ${localData.get(TITLE_KEY)}, ${localData.get(
-                    DESCRIPITION_KEY
+                localData.save(TITLE, title)
+                localData.save(DESCRIPTION, description)
+                Log.i("info", "CreateTaskCreen : ${localData.get(TITLE)}, ${localData.get(
+                    DESCRIPTION
                 )}")
                 navController.navigate(Routes.TaskList.routes)
             }) {

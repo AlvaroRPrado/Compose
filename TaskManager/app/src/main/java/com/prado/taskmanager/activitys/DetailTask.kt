@@ -20,8 +20,8 @@ import com.prado.taskmanager.data.SharedPreference
 
 @Composable
 fun DetailTaskScreen(paddingValues: PaddingValues, localData: SharedPreference){
-   val title by remember { mutableStateOf(localData.get(Constants.TITLE_KEY) ?: "") }
-    val description by remember { mutableStateOf(localData.get(Constants.DESCRIPITION_KEY) ?: "") }
+   val title by remember { mutableStateOf(localData.get(Constants.TITLE)) }
+    val description by remember { mutableStateOf(localData.get(Constants.DESCRIPTION)) }
     Column(modifier = Modifier
         .padding(paddingValues)
         .fillMaxSize().padding(10.dp)
@@ -36,10 +36,5 @@ fun DetailTaskScreen(paddingValues: PaddingValues, localData: SharedPreference){
             modifier = Modifier.weight(1f).fillMaxSize()) {
             Text(text = description, modifier = Modifier.padding(10.dp))
         }
-
-
-
-
-
     }
 }
