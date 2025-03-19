@@ -14,7 +14,7 @@ class Navigation {
     //Refatorando o codigo
     private fun NavGraphBuilder.composableScreen(routes: String){
         composable(routes){
-            CallScalffold(navController, localeData).CreateScreen(screen = routes)
+            CallScaffold(navController, localeData).CreateScreen(screen = routes)
         }
     }
     private lateinit var navController: NavHostController

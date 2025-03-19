@@ -1,59 +1,53 @@
 package com.prado.taskmanager.activitys
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import com.prado.taskmanager.base.Constants.Companion.DESCRIPTION
-import com.prado.taskmanager.base.Constants.Companion.TITLE
-import com.prado.taskmanager.base.Routes
-import com.prado.taskmanager.data.SharedPreference
+import com.prado.taskmanager.base.Constants
 
 @Composable
-fun EditTaskScreen(paddingValues: PaddingValues, navController: NavController){
+fun EditTaskScreen(paddingValues: PaddingValues, editViewModel: EditViewModel){
 
-    val localData = SharedPreference(LocalContext.current)
-    var title by remember { mutableStateOf(localData.get(TITLE) ?: "") }
-    var description by remember { mutableStateOf(localData.get(DESCRIPTION)) }
+    val title by editViewModel.title.collectAsState()
+    val description by editViewModel.description.collectAsState()
+    val saveRequest by editViewModel.isSaveRequest.collectAsState()
+
+    LaunchedEffect(saveRequest) {
+        if (saveRequest) editViewModel.editTask()
+    }
+
     Column (modifier = Modifier
         .padding(paddingValues)
         .padding(top = 20.dp, start = 10.dp, end = 10.dp)
     ){
         OutlinedTextField(
-            value = title,
-            onValueChange = {title = it},
-            label = { Text("Titulo") },
+            value = title ?: "",
+            onValueChange = {editViewModel.setTitle(it)},
+            label = { Text(Constants.TITLE) },
             modifier = Modifier.fillMaxWidth()
         )
         OutlinedTextField(
-            value = description,
-            onValueChange = {description = it},
-            label = { Text("Descrição") },
+            value = description ?: "",
+            onValueChange = {editViewModel.setDecription(it)},
+            label = { Text(Constants.DESCRIPTION) },
             modifier = Modifier.fillMaxWidth().weight(1f)
         )
-        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
+       /* Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
             Button(onClick = {
-                localData.save(TITLE, title)
-                localData.save(DESCRIPTION, description)
-                navController.navigate(Routes.TaskList.routes)
+               editViewModel.editTask()
             }) {
                 Text(text = "Editar")
             }
-        }
+        }*/
     }
 }
 

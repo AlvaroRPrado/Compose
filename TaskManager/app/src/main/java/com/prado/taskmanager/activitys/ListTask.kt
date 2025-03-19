@@ -27,7 +27,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.prado.taskmanager.base.Constants.Companion.TITLE
+import com.prado.taskmanager.base.Constants
+import com.prado.taskmanager.base.Constants.Companion.TITLE_KEY
 import com.prado.taskmanager.base.Routes
 import com.prado.taskmanager.data.SharedPreference
 
@@ -45,15 +46,15 @@ import com.prado.taskmanager.data.SharedPreference
                   Button(onClick = {
                       listTaskViewModel.deleteTask()
                   }) {
-                      Text(text = "Sim")
+                      Text(text = Constants.YES)
                   }
               },
                   dismissButton = {
                       Button(onClick = {listTaskViewModel.setShowDialog(false)}) {
-                          Text(text = "Não")
+                          Text(text = Constants.NO)
                       }
                   },
-                  text = { Text(text = "Deseja excluir essa tarefa?") }
+                  text = { Text(text = Constants.CONFIRMA_DELETE) }
               )
           }
            if (title != "") {
@@ -71,7 +72,7 @@ import com.prado.taskmanager.data.SharedPreference
                        horizontalArrangement = Arrangement.SpaceBetween
                    ) {
                        Text(
-                           text = localData.get(TITLE),
+                           text = localData.get(TITLE_KEY),
                            modifier = Modifier.padding(
                                start = 20.dp,
                                end = 20.dp,
@@ -102,7 +103,7 @@ import com.prado.taskmanager.data.SharedPreference
                Box(modifier = Modifier
                    .fillMaxSize()
                    .padding(10.dp), contentAlignment = Alignment.Center){
-                   Text(text = "Não tem nenhuma tarefa salva!")
+                   Text(text = Constants.NO_TASK_SAVED)
                }
 
            }
