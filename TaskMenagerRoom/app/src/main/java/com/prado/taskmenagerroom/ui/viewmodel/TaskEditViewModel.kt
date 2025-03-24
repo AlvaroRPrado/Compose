@@ -6,12 +6,15 @@ import com.prado.taskmenagerroom.base.Constants
 
 import com.prado.taskmenagerroom.base.Routes
 import com.prado.taskmenagerroom.data.SharedPreference
+import com.prado.taskmenagerroom.data.TaskDatabase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 class TaskEditViewModel(
     private val localData: SharedPreference,
-    private val navController: NavController) : ViewModel() {
+    private val navController: NavController,
+    private val localDB: TaskDatabase
+) : ViewModel() {
     private var _isSaveRequest = MutableStateFlow(false)
     val isSaveRequest: StateFlow<Boolean> = _isSaveRequest
 

@@ -18,10 +18,11 @@ import com.prado.taskmenagerroom.ui.viewmodel.TaskCreateViewModel
 @Composable
 fun CreateTaskScreen(paddingValues: PaddingValues, createTaskViewModel: TaskCreateViewModel){
     val title by createTaskViewModel.title.collectAsState()
-    val description by createTaskViewModel.description.collectAsState()
+    val description by createTaskViewModel.content.collectAsState()
     val saveRequest by createTaskViewModel.isSaveRequest.collectAsState()
 
-    LaunchedEffect(saveRequest) {
+
+    LaunchedEffect(saveRequest){
        if (saveRequest) createTaskViewModel.createTask()
     }
     Column (modifier = Modifier

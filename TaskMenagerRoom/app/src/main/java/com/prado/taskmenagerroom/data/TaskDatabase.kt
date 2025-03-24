@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-@Database(entities = [TaskEntity::class], version = 1)
+@Database(entities = [TaskEntity::class], version = 1, exportSchema = false)
 abstract class TaskDatabase : RoomDatabase(){
 
     abstract fun tastkDao() : TaskDao
@@ -19,12 +19,12 @@ abstract class TaskDatabase : RoomDatabase(){
                 return tempInstance
             }
             synchronized(this){
-                val Instance = Room.databaseBuilder(
+                val instance = Room.databaseBuilder(
                     context.applicationContext,
                     TaskDatabase::class.java,
                     "task_database"
-                ).build()
-                INSTANCE = Instance
+                ).allowMainThreadQueries().build()
+                INSTANCE = instance
                 return INSTANCE as TaskDatabase
             }
         }

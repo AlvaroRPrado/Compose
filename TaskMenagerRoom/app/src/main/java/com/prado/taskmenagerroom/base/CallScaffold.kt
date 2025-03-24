@@ -22,17 +22,18 @@ import com.prado.taskmenagerroom.ui.viewmodel.TaskEditViewModel
 import com.prado.taskmenagerroom.ui.screen.ListTaskScreen
 import com.prado.taskmenagerroom.ui.viewmodel.TaskListViewModel
 import com.prado.taskmenagerroom.data.SharedPreference
+import com.prado.taskmenagerroom.data.TaskDatabase
 
 
 class CallScaffold(
     private val navController: NavController,
-    localData: SharedPreference
+    localData: SharedPreference,
+    localDB: TaskDatabase
 ) {
-
-    private val listTaskViewModel = TaskListViewModel(localData)
-    private val createTaskViewModel = TaskCreateViewModel(localData, navController)
-    private val editViewModel = TaskEditViewModel(localData, navController)
-    private val detailViewModel = TaskDetailViewModel(localData)
+    private val createTaskViewModel = TaskCreateViewModel( navController = navController, localData = localData, localDB = localDB)
+    private val editViewModel = TaskEditViewModel(navController = navController, localData = localData, localDB = localDB)
+    private val listTaskViewModel = TaskListViewModel(localData = localData, localDB = localDB)
+    private val detailViewModel = TaskDetailViewModel(localData = localData, localDB = localDB)
 
     @Composable
     fun CreateScreen(screen: String): PaddingValues {

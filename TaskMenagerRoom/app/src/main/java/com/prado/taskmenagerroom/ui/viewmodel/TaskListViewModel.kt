@@ -5,10 +5,13 @@ import androidx.navigation.NavController
 import com.prado.taskmenagerroom.base.Constants.Companion.DESCRIPTION_KEY
 import com.prado.taskmenagerroom.base.Constants.Companion.TITLE_KEY
 import com.prado.taskmenagerroom.data.SharedPreference
+import com.prado.taskmenagerroom.data.TaskDatabase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-class TaskListViewModel(private val localData: SharedPreference) : ViewModel() {
+class TaskListViewModel(private val localData: SharedPreference,
+                        private val localDB: TaskDatabase
+) : ViewModel() {
 
     private var _title  = MutableStateFlow( localData.get(TITLE_KEY))
     val title: StateFlow<String?> = _title

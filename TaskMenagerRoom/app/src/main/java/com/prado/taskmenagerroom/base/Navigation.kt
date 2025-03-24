@@ -8,22 +8,26 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.prado.taskmenagerroom.data.SharedPreference
+import com.prado.taskmenagerroom.data.TaskDatabase
 
 //Vai fazer o controle de navegação entre as telas.
 class Navigation {
-    //Refatorando o codigo
-    private fun NavGraphBuilder.composableScreen(routes: String){
-        composable(routes){
-            CallScaffold(navController, localeData).CreateScreen(screen = routes)
-        }
-    }
+
     private lateinit var navController: NavHostController
     private lateinit var localeData: SharedPreference
+    private lateinit var localDB: TaskDatabase
+
+    private fun NavGraphBuilder.composableScreen(routes: String){
+        composable(routes){
+            CallScaffold(navController, localeData, localDB = localDB).CreateScreen(screen = routes)
+        }
+    }
 
     @Composable
     fun Create(){
         navController = rememberNavController()
         localeData = SharedPreference(LocalContext.current)
+        localDB = TaskDatabase.getDatabase(LocalContext.current)
 
         NavHost(navController = navController, startDestination = Routes.TaskList.routes){
             //Refatorando o codigo

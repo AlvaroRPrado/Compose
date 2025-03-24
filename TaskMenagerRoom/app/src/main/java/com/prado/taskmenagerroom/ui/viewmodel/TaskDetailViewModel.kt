@@ -3,10 +3,11 @@ package com.prado.taskmenagerroom.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import com.prado.taskmenagerroom.base.Constants
 import com.prado.taskmenagerroom.data.SharedPreference
+import com.prado.taskmenagerroom.data.TaskDatabase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-class TaskDetailViewModel(private val localData: SharedPreference): ViewModel() {
+class TaskDetailViewModel(private val localData: SharedPreference, private val localDB: TaskDatabase): ViewModel() {
 
     private val _title = MutableStateFlow(localData.get(Constants.TITLE_KEY))
     val title : StateFlow<String?> = _title
