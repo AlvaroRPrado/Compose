@@ -20,5 +20,5 @@ interface TaskDao {
    suspend fun delete(vararg taskEntity: TaskEntity)
 
     @Query("SELECT * FROM taskEntity")
-    fun getAll(): List<TaskEntity>
+    suspend fun getAll(): List<TaskEntity>
 }

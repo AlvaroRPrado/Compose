@@ -31,13 +31,16 @@ class TaskCreateViewModel(
     }
 
     fun createTask(){
-       // localData.save(Constants.TITLE_KEY, _title.value ?: "")
-        //localData.save(Constants.DESCRIPTION_KEY, _description.value ?: "")
-        viewModelScope.launch {
-            localDB.tastkDao().insertAll(TaskEntity(id = 0, _title.value, _content.value))
-            Log.i("database", "createTask: ${localDB.tastkDao().getAll()}")
-        }
-        navigate(screen = Routes.TaskList.routes)
+      try {
+          viewModelScope.launch {
+              localDB.tastkDao().insertAll(TaskEntity(id = 0, _title.value, _content.value))
+              Log.i("database", "createTask: ${localDB.tastkDao().getAll()}")
+          }
+          navigate(screen = Routes.TaskList.routes)
+      }catch (ex: Exception){
+          TODO()
+      }
+
 
     }
     fun setTile(title: String){
