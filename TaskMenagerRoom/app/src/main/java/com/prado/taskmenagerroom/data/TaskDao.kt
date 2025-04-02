@@ -21,4 +21,8 @@ interface TaskDao {
 
     @Query("SELECT * FROM taskEntity")
     suspend fun getAll(): List<TaskEntity>
+
+    //4 edit
+    @Query("SELECT * FROM taskEntity WHERE id LIKE(:id)")
+    suspend fun getById(id: Long): TaskEntity
 }

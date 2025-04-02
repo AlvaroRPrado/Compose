@@ -3,6 +3,7 @@ package com.prado.taskmenagerroom.base
 class Constants {
 
     companion object{
+
         const val TITLE_KEY = "title_key"
         const val DESCRIPTION_KEY = "description_key"
         const val TITLE = "Titulo"
@@ -17,6 +18,7 @@ class Constants {
         const val MY_TASK = "Minhas Notas"
         const val TASK_DETAIL="Detalhe da Nota"
         const val TASK_EDIT = "Editar Nota"
+        const val TASK_kEY  = "task_key"
 
     }
 }

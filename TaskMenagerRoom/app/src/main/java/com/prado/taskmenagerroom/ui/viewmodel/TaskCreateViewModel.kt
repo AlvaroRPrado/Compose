@@ -33,8 +33,8 @@ class TaskCreateViewModel(
     fun createTask(){
       try {
           viewModelScope.launch {
-              localDB.tastkDao().insertAll(TaskEntity(id = 0, _title.value, _content.value))
-              Log.i("database", "createTask: ${localDB.tastkDao().getAll()}")
+              localDB.taskDao().insertAll(TaskEntity(id = 0, _title.value, _content.value))
+              Log.i("database", "createTask: ${localDB.taskDao().getAll()}")
           }
           navigate(screen = Routes.TaskList.routes)
       }catch (ex: Exception){

@@ -29,10 +29,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.prado.taskmenagerroom.base.Constants
 import com.prado.taskmenagerroom.base.Routes
+import com.prado.taskmenagerroom.data.SharedPreference
 import com.prado.taskmenagerroom.data.TaskEntity
 import com.prado.taskmenagerroom.ui.viewmodel.TaskListViewModel
 
@@ -48,6 +50,7 @@ import com.prado.taskmenagerroom.ui.viewmodel.TaskListViewModel
         val  tasks by listTaskViewModel.tasks.collectAsState()
         val showDialog by listTaskViewModel.showDialog.collectAsState(false)
         var selectItem by remember { mutableStateOf(TaskEntity()) }
+        val localData = SharedPreference(LocalContext.current)
         Column (
             modifier = Modifier.padding(paddingValues)){
           if (showDialog) {
@@ -95,10 +98,15 @@ import com.prado.taskmenagerroom.ui.viewmodel.TaskListViewModel
 
                                    Box(modifier = Modifier) {
                                        Row {
-                                           IconButton(onClick = { listTaskViewModel.navigate(Routes.TaskEdit.routes, navController)
+                                           IconButton(onClick = {
+                                               //2 edit
+                                               localData.saveID(Constants.TASK_kEY, tasks.id)
+                                               listTaskViewModel.navigate(Routes.TaskEdit.routes, navController)
                                                //navController.navigate(Routes.TaskEdit.routes)
                                            }) {
-                                               Icon(Icons.Default.Edit, contentDescription = null)
+                                               Icon(
+                                                   Icons.Default.Edit,
+                                                   contentDescription = null)
                                            }
                                            IconButton(onClick = {
                                                selectItem = tasks

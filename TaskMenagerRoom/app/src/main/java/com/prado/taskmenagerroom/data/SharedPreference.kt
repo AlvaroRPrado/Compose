@@ -15,4 +15,12 @@ class SharedPreference(context: Context) {
     fun get(key: String): String {
         return preferences.getString(key, "") ?: ""
     }
+   //1 edit
+    fun saveID(key: String, value: Long){
+        preferences.edit().putLong(key, value).apply()
+    }
+    //5 edit
+    fun getByID(key: String): Long {
+        return preferences.getLong(key, 0L)
+    }
 }

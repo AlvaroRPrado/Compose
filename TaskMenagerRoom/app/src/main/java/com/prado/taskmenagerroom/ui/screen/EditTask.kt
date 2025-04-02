@@ -16,12 +16,18 @@ import com.prado.taskmenagerroom.base.Constants
 import com.prado.taskmenagerroom.ui.viewmodel.TaskEditViewModel
 
 @Composable
-fun EditTaskScreen(paddingValues: PaddingValues, editViewModel: TaskEditViewModel){
+fun EditTaskScreen(
+    paddingValues: PaddingValues,
+    editViewModel: TaskEditViewModel){
 
     val title by editViewModel.title.collectAsState()
     val description by editViewModel.description.collectAsState()
     val saveRequest by editViewModel.isSaveRequest.collectAsState()
 
+    //7 edit
+    LaunchedEffect(key1 = editViewModel.task) {
+        editViewModel.loadsTask()
+    }
     LaunchedEffect(saveRequest) {
         if (saveRequest) editViewModel.editTask()
     }
@@ -38,7 +44,7 @@ fun EditTaskScreen(paddingValues: PaddingValues, editViewModel: TaskEditViewMode
         )
         OutlinedTextField(
             value = description ?: "",
-            onValueChange = {editViewModel.setDecription(it)},
+            onValueChange = {editViewModel.setDescription(it)},
             label = { Text(Constants.DESCRIPTION) },
             modifier = Modifier.fillMaxWidth().weight(1f)
         )

@@ -3,7 +3,6 @@ package com.prado.taskmenagerroom.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
-import com.prado.taskmenagerroom.base.Constants.Companion.DESCRIPTION_KEY
 import com.prado.taskmenagerroom.base.Constants.Companion.TITLE_KEY
 import com.prado.taskmenagerroom.data.SharedPreference
 import com.prado.taskmenagerroom.data.TaskDatabase
@@ -28,7 +27,7 @@ class TaskListViewModel(private val localData: SharedPreference,
     fun loadsTasks(){
         try {
             viewModelScope.launch {
-                _tasks.value = localDB.tastkDao().getAll()
+                _tasks.value = localDB.taskDao().getAll()
             }
         }catch (ex: Exception){
             TODO()
@@ -37,8 +36,8 @@ class TaskListViewModel(private val localData: SharedPreference,
     fun deleteTask(task: TaskEntity){
        try {
            viewModelScope.launch {
-               localDB.tastkDao().delete(task)
-               _tasks.value = localDB.tastkDao().getAll()
+               localDB.taskDao().delete(task)
+               _tasks.value = localDB.taskDao().getAll()
            }
        }catch (ex: Exception){
            TODO()
