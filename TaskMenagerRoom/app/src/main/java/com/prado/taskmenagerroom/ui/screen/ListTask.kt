@@ -24,15 +24,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.prado.taskmenagerroom.base.Constants
-import com.prado.taskmenagerroom.base.Constants.Companion.TITLE_KEY
 import com.prado.taskmenagerroom.base.Routes
-import com.prado.taskmenagerroom.data.SharedPreference
+import com.prado.taskmenagerroom.data.TaskEntity
 import com.prado.taskmenagerroom.ui.viewmodel.TaskListViewModel
 
 
@@ -42,17 +43,17 @@ import com.prado.taskmenagerroom.ui.viewmodel.TaskListViewModel
     navController: NavController,
     listTaskViewModel: TaskListViewModel){
 
-        LaunchedEffect(key1 = Unit) { listTaskViewModel.loadsTasks() }
-
+       // LaunchedEffect(key1 = Unit) { listTaskViewModel.loadsTasks() }
+        LaunchedEffect(key1 = listTaskViewModel.tasks) { listTaskViewModel.loadsTasks() }
         val  tasks by listTaskViewModel.tasks.collectAsState()
         val showDialog by listTaskViewModel.showDialog.collectAsState(false)
-
+        var selectItem by remember { mutableStateOf(TaskEntity()) }
         Column (
             modifier = Modifier.padding(paddingValues)){
           if (showDialog) {
               AlertDialog(onDismissRequest = {}, confirmButton = {
                   Button(onClick = {
-                      listTaskViewModel.deleteTask()
+                      listTaskViewModel.deleteTask(selectItem)
                   }) {
                       Text(text = Constants.YES)
                   }
@@ -100,6 +101,7 @@ import com.prado.taskmenagerroom.ui.viewmodel.TaskListViewModel
                                                Icon(Icons.Default.Edit, contentDescription = null)
                                            }
                                            IconButton(onClick = {
+                                               selectItem = tasks
                                                listTaskViewModel.setShowDialog(true)
                                            }) {
                                                Icon(Icons.Default.Delete, contentDescription = null)

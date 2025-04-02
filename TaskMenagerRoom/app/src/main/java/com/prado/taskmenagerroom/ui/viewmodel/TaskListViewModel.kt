@@ -34,10 +34,15 @@ class TaskListViewModel(private val localData: SharedPreference,
             TODO()
         }
     }
-    fun deleteTask(){
-        localData.delete(TITLE_KEY)
-        localData.delete(DESCRIPTION_KEY)
-        _title.value = ""
+    fun deleteTask(task: TaskEntity){
+       try {
+           viewModelScope.launch {
+               localDB.tastkDao().delete(task)
+               _tasks.value = localDB.tastkDao().getAll()
+           }
+       }catch (ex: Exception){
+           TODO()
+       }
         _showDialog.value = false
     }
     fun setShowDialog(value: Boolean){
