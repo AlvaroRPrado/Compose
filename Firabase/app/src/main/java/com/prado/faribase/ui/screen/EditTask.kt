@@ -1,0 +1,60 @@
+package com.prado.faribase.ui.screen
+
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.prado.faribase.base.Constants
+import com.prado.faribase.ui.viewmodel.TaskEditViewModel
+
+@Composable
+fun EditTaskScreen(
+    paddingValues: PaddingValues,
+    editViewModel: TaskEditViewModel){
+
+    val title by editViewModel.title.collectAsState()
+    val content by editViewModel.content.collectAsState()
+    val saveRequest by editViewModel.isSaveRequest.collectAsState()
+
+    //7 edit
+    LaunchedEffect(key1 = editViewModel.task) {
+        editViewModel.loadsTask()
+    }
+    LaunchedEffect(saveRequest) {
+        if (saveRequest) editViewModel.editTask()
+    }
+
+    Column (modifier = Modifier
+        .padding(paddingValues)
+        .padding(top = 20.dp, start = 10.dp, end = 10.dp)
+    ){
+        OutlinedTextField(
+            value = title ?: "",
+            onValueChange = {editViewModel.setTitle(it)},
+            label = { Text(Constants.TITLE) },
+            modifier = Modifier.fillMaxWidth()
+        )
+        OutlinedTextField(
+            value = content ?: "",
+            onValueChange = {editViewModel.setDescription(it)},
+            label = { Text(Constants.CONTENT) },
+            modifier = Modifier.fillMaxWidth().weight(1f)
+        )
+       /* Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
+            Button(onClick = {
+               editViewModel.editTask()
+            }) {
+                Text(text = "Editar")
+            }
+        }*/
+    }
+}
+

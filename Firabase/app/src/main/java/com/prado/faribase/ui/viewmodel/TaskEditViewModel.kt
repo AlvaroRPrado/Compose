@@ -1,0 +1,69 @@
+package com.prado.faribase.ui.viewmodel
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
+import com.prado.faribase.base.Constants
+
+import com.prado.faribase.base.Routes
+import com.prado.faribase.data.SharedPreference
+import com.prado.faribase.data.TaskDatabase
+import com.prado.faribase.data.TaskEntity
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+
+class TaskEditViewModel(
+    private val localData: SharedPreference,
+    private val navController: NavController,
+    private val localDB: TaskDatabase
+) : ViewModel() {
+
+    private var _isSaveRequest = MutableStateFlow(false)
+    val isSaveRequest: StateFlow<Boolean> = _isSaveRequest
+
+    private var _title = MutableStateFlow("")
+    val title: StateFlow<String?> = _title
+
+    private var _content = MutableStateFlow("")
+    val content: StateFlow<String?> = _content
+
+    // 3 edit
+    private var _task = MutableStateFlow(TaskEntity())
+    val task: StateFlow<TaskEntity> = _task
+
+
+    fun setSaveRequest(value: Boolean){
+        _isSaveRequest.value = value
+    }
+    fun editTask(){
+        try {
+            //9 edit
+            viewModelScope.launch {
+                localDB.taskDao().update(TaskEntity(_task.value.id, _title.value, _content.value))
+                navController.navigate(Routes.TaskList.routes)
+            }
+        }catch (ex: Exception){
+            TODO()
+        }
+    }
+    fun setTitle(screen: String){
+        _title.value = screen
+    }
+    fun setDescription(screen: String){
+        _content.value = screen
+    }
+    //6 edit
+    fun loadsTask(){
+        try {
+            viewModelScope.launch {
+                _task.value = localDB.taskDao().getById(localData.getByID(Constants.TASK_KEY))
+                setTitle(_task.value.title)
+                setDescription(_task.value.content)
+            }
+        }catch (ex: Exception){
+            TODO()
+        }
+    }
+
+}
