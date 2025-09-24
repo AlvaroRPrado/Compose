@@ -13,12 +13,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.prado.taskmenagerroom.base.Constants
-import com.prado.taskmenagerroom.ui.viewmodel.TaskCreateViewModel
+import com.prado.taskmenagerroom.ui.viewmodel.TaskAddViewModel
 
 @Composable
-fun CreateTaskScreen(paddingValues: PaddingValues, createTaskViewModel: TaskCreateViewModel){
+fun CreateTaskScreen(paddingValues: PaddingValues, createTaskViewModel: TaskAddViewModel){
     val title by createTaskViewModel.title.collectAsState()
-    val description by createTaskViewModel.content.collectAsState()
+    val content by createTaskViewModel.content.collectAsState()
     val saveRequest by createTaskViewModel.isSaveRequest.collectAsState()
 
 
@@ -36,18 +36,11 @@ fun CreateTaskScreen(paddingValues: PaddingValues, createTaskViewModel: TaskCrea
             modifier = Modifier.fillMaxWidth()
         )
         OutlinedTextField(
-            value = description ?: "",
+            value = content ?: "",
             onValueChange = {createTaskViewModel.setDescription(it)},
-            label = { Text(Constants.DESCRIPTION) },
+            label = { Text(Constants.CONTENT) },
             modifier = Modifier.fillMaxWidth().weight(1f)
         )
-       /* Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){
-            Button(onClick = {
-                createTaskViewModel.createTask()
-            }) {
-                Text(text = "Criar")
-            }
-        }*/
     }
 }
 

@@ -58,15 +58,15 @@ import com.prado.taskmenagerroom.ui.viewmodel.TaskListViewModel
                   Button(onClick = {
                       listTaskViewModel.deleteTask(selectItem)
                   }) {
-                      Text(text = Constants.YES)
+                      Text(text = Constants.ALERTDIALOG.YES)
                   }
               },
                   dismissButton = {
                       Button(onClick = {listTaskViewModel.setShowDialog(false)}) {
-                          Text(text = Constants.NO)
+                          Text(text = Constants.ALERTDIALOG.NO)
                       }
                   },
-                  text = { Text(text = Constants.CONFIRMA_DELETE) }
+                  text = { Text(text = Constants.ALERTDIALOG.CONFIRMA_DELETE) }
               )
           }
            if (tasks.isNotEmpty()) {
@@ -100,7 +100,7 @@ import com.prado.taskmenagerroom.ui.viewmodel.TaskListViewModel
                                        Row {
                                            IconButton(onClick = {
                                                //2 edit
-                                               localData.saveID(Constants.TASK_kEY, tasks.id)
+                                               localData.saveID(Constants.TASK_KEY, tasks.id)
                                                listTaskViewModel.navigate(Routes.TaskEdit.routes, navController)
                                                //navController.navigate(Routes.TaskEdit.routes)
                                            }) {
@@ -138,7 +138,7 @@ import com.prado.taskmenagerroom.ui.viewmodel.TaskListViewModel
             .padding(paddingValues)
             .padding(10.dp),
             contentAlignment = Alignment.BottomEnd){
-            FloatingActionButton(onClick = {listTaskViewModel.navigate(Routes.TaskCreate.routes, navController)
+            FloatingActionButton(onClick = {listTaskViewModel.navigate(Routes.TaskAdd.routes, navController)
                 //navController.navigate(Routes.TaskCreate.routes)
             }) {
                 Text(text = "+")

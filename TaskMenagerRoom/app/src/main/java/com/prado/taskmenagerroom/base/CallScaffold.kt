@@ -24,7 +24,7 @@ import com.prado.taskmenagerroom.ui.screen.CreateTaskScreen
 import com.prado.taskmenagerroom.ui.screen.DetailTaskScreen
 import com.prado.taskmenagerroom.ui.screen.EditTaskScreen
 import com.prado.taskmenagerroom.ui.screen.ListTaskScreen
-import com.prado.taskmenagerroom.ui.viewmodel.TaskCreateViewModel
+import com.prado.taskmenagerroom.ui.viewmodel.TaskAddViewModel
 import com.prado.taskmenagerroom.ui.viewmodel.TaskDetailViewModel
 import com.prado.taskmenagerroom.ui.viewmodel.TaskEditViewModel
 import com.prado.taskmenagerroom.ui.viewmodel.TaskListViewModel
@@ -35,7 +35,7 @@ class CallScaffold(
     localData: SharedPreference,
     localDB: TaskDatabase
 ) {
-    private val createTaskViewModel by lazy { TaskCreateViewModel(navController = navController, localDB = localDB) }
+    private val createTaskViewModel by lazy { TaskAddViewModel(navController = navController, localDB = localDB) }
     private val editViewModel by lazy { TaskEditViewModel(navController = navController,
         localData = localData, localDB = localDB) }
     private val listTaskViewModel by lazy { TaskListViewModel(localData = localData, localDB = localDB) }
@@ -45,7 +45,7 @@ class CallScaffold(
     fun buildScreen(screen: String): PaddingValues {
         val viewModel =  when(screen){
             Routes.TaskList.routes -> listTaskViewModel
-            Routes.TaskCreate.routes -> createTaskViewModel
+            Routes.TaskAdd.routes -> createTaskViewModel
             Routes.TaskEdit.routes -> editViewModel
             Routes.TaskDetail.routes -> detailViewModel
             else -> throw IllegalArgumentException("Não foi encontrada a tela $screen")
@@ -57,7 +57,7 @@ class CallScaffold(
                     navController = navController,
                     listTaskViewModel = listTaskViewModel
                 )
-                Routes.TaskCreate.routes -> CreateTaskScreen(
+                Routes.TaskAdd.routes -> CreateTaskScreen(
                     paddingValues = padding,
                     createTaskViewModel = createTaskViewModel,
 
@@ -91,17 +91,17 @@ class CallScaffold(
     @Composable
     fun CustomTopBar(screen: String, viewModel: ViewModel){
         val title = when(screen){
-            Routes.TaskCreate.routes -> Constants.CREATE_TASK
-            Routes.TaskEdit.routes -> Constants.TASK_EDIT
-            Routes.TaskList.routes -> Constants.MY_TASK
-            Routes.TaskDetail.routes -> Constants.TASK_DETAIL
+            Routes.TaskAdd.routes -> Constants.TOPAPPBARHEADER.CREATE_TASK
+            Routes.TaskEdit.routes -> Constants.TOPAPPBARHEADER.TASK_EDIT
+            Routes.TaskList.routes -> Constants.TOPAPPBARHEADER.MY_TASK
+            Routes.TaskDetail.routes -> Constants.TOPAPPBARHEADER.TASK_DETAIL
             else -> ""
         }
 
         CenterAlignedTopAppBar(title = {Text(text = title)},
             actions = {
                 when(viewModel){
-                    is TaskCreateViewModel -> ButtonSave(onSaveClick = {createTaskViewModel.setSaveRequest(true)})
+                    is TaskAddViewModel -> ButtonSave(onSaveClick = {createTaskViewModel.setSaveRequest(true)})
                     is TaskEditViewModel -> ButtonSave(onSaveClick = {editViewModel.setSaveRequest(true)})
                 }
 

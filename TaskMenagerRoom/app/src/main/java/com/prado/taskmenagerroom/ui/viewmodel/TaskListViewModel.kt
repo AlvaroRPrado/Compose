@@ -11,8 +11,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class TaskListViewModel(private val localData: SharedPreference,
-                        private val localDB: TaskDatabase
+class TaskListViewModel(
+    localData: SharedPreference,
+    private val localDB: TaskDatabase
 ) : ViewModel() {
 
     private var _tasks = MutableStateFlow<List<TaskEntity>>(emptyList())

@@ -21,14 +21,14 @@ class TaskDetailViewModel(
     private val _title = MutableStateFlow(localData.get(Constants.TITLE_KEY))
     val title : StateFlow<String?> = _title
 
-    private val _description = MutableStateFlow(localData.get(Constants.DESCRIPTION_KEY))
-    val description : StateFlow<String> = _description
+    private val _content = MutableStateFlow(localData.get(Constants.DESCRIPTION_KEY))
+    val content : StateFlow<String> = _content
 
     fun loaTask(){
        viewModelScope.launch {
-           _task.value = localDB.taskDao().getById(localData.getByID(Constants.TASK_kEY))
+           _task.value = localDB.taskDao().getById(localData.getByID(Constants.TASK_KEY))
            _title.value = _task.value.title
-           _description.value = _task.value.content
+           _content.value = _task.value.content
 
        }
     }

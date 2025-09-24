@@ -21,7 +21,7 @@ fun EditTaskScreen(
     editViewModel: TaskEditViewModel){
 
     val title by editViewModel.title.collectAsState()
-    val description by editViewModel.description.collectAsState()
+    val content by editViewModel.content.collectAsState()
     val saveRequest by editViewModel.isSaveRequest.collectAsState()
 
     //7 edit
@@ -43,9 +43,9 @@ fun EditTaskScreen(
             modifier = Modifier.fillMaxWidth()
         )
         OutlinedTextField(
-            value = description ?: "",
+            value = content ?: "",
             onValueChange = {editViewModel.setDescription(it)},
-            label = { Text(Constants.DESCRIPTION) },
+            label = { Text(Constants.CONTENT) },
             modifier = Modifier.fillMaxWidth().weight(1f)
         )
        /* Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center){

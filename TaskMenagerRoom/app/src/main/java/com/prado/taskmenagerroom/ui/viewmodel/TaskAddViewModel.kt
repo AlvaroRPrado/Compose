@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class TaskCreateViewModel(
+class TaskAddViewModel(
     private val navController: NavController,
     private val localDB: TaskDatabase) : ViewModel() {
 

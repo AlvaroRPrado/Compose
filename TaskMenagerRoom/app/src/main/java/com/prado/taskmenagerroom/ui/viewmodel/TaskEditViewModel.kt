@@ -25,8 +25,8 @@ class TaskEditViewModel(
     private var _title = MutableStateFlow("")
     val title: StateFlow<String?> = _title
 
-    private var _description = MutableStateFlow("")
-    val description: StateFlow<String?> = _description
+    private var _content = MutableStateFlow("")
+    val content: StateFlow<String?> = _content
 
     // 3 edit
     private var _task = MutableStateFlow(TaskEntity())
@@ -40,7 +40,7 @@ class TaskEditViewModel(
         try {
             //9 edit
             viewModelScope.launch {
-                localDB.taskDao().update(TaskEntity(_task.value.id, _title.value, _description.value))
+                localDB.taskDao().update(TaskEntity(_task.value.id, _title.value, _content.value))
                 navController.navigate(Routes.TaskList.routes)
             }
         }catch (ex: Exception){
@@ -51,13 +51,13 @@ class TaskEditViewModel(
         _title.value = screen
     }
     fun setDescription(screen: String){
-        _description.value = screen
+        _content.value = screen
     }
     //6 edit
     fun loadsTask(){
         try {
             viewModelScope.launch {
-                _task.value = localDB.taskDao().getById(localData.getByID(Constants.TASK_kEY))
+                _task.value = localDB.taskDao().getById(localData.getByID(Constants.TASK_KEY))
                 setTitle(_task.value.title)
                 setDescription(_task.value.content)
             }

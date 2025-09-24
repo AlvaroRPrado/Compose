@@ -24,7 +24,7 @@ fun DetailTaskScreen(paddingValues: PaddingValues, detailViewModel: TaskDetailVi
         detailViewModel.loaTask()
     }
     val title by detailViewModel.title.collectAsState()
-    val description by detailViewModel.description.collectAsState()
+    val content by detailViewModel.content.collectAsState()
 
     Column(modifier = Modifier
         .padding(paddingValues)
@@ -39,7 +39,7 @@ fun DetailTaskScreen(paddingValues: PaddingValues, detailViewModel: TaskDetailVi
         Spacer(modifier = Modifier.height(12.dp))
         Card(
             modifier = Modifier.weight(1f).fillMaxSize()) {
-            Text(text = description?: "",
+            Text(text = content?: "",
                 modifier = Modifier.padding(10.dp))
         }
     }

@@ -32,7 +32,7 @@ class Navigation {
         NavHost(navController = navController, startDestination = Routes.TaskList.routes){
             //Refatorando o codigo
             composableScreen(Routes.TaskList.routes)
-            composableScreen(Routes.TaskCreate.routes)
+            composableScreen(Routes.TaskAdd.routes)
             composableScreen(Routes.TaskDetail.routes)
             composableScreen(Routes.TaskEdit.routes)
            /* composable(route = Routes.TaskList.routes){

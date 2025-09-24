@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.prado.taskmenagerroom.base.Constants
+
 @Database(entities = [TaskEntity::class], version = 2, exportSchema = false)
 abstract class TaskDatabase : RoomDatabase(){
 
@@ -22,7 +24,7 @@ abstract class TaskDatabase : RoomDatabase(){
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     TaskDatabase::class.java,
-                    "task_database"
+                    Constants.DATABASE.DATABASENAME
                 ).fallbackToDestructiveMigration().build()
                 INSTANCE = instance
                 return INSTANCE as TaskDatabase
