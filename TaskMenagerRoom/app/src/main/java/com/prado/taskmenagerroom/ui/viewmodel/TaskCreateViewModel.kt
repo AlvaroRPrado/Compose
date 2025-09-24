@@ -5,9 +5,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
-import com.prado.taskmenagerroom.base.Constants
 import com.prado.taskmenagerroom.base.Routes
-import com.prado.taskmenagerroom.data.SharedPreference
 import com.prado.taskmenagerroom.data.TaskDatabase
 import com.prado.taskmenagerroom.data.TaskEntity
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,14 +13,15 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class TaskCreateViewModel(
-    private val localData: SharedPreference,
     private val navController: NavController,
     private val localDB: TaskDatabase) : ViewModel() {
 
-    private var _title = MutableStateFlow(localData.get(Constants.TITLE_KEY))
+    private var _title = MutableStateFlow("")
     val title: StateFlow<String?> = _title
-    private var _content = MutableStateFlow(localData.get(Constants.DESCRIPTION_KEY))
+
+    private var _content = MutableStateFlow("")
     val content: StateFlow<String?> = _content
+
     private var _isSaveRequest = MutableStateFlow(false)
     val isSaveRequest: StateFlow<Boolean> = _isSaveRequest
 

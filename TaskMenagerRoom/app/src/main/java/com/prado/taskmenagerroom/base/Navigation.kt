@@ -19,7 +19,7 @@ class Navigation {
 
     private fun NavGraphBuilder.composableScreen(routes: String){
         composable(routes){
-            CallScaffold(navController, localeData, localDB = localDB).CreateScreen(screen = routes)
+            CallScaffold(navController, localeData, localDB = localDB).buildScreen(screen = routes)
         }
     }
 
